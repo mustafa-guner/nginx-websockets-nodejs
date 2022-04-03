@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>This LAYER 7 Reverse Proxy</h1>
+    <hr>
+    <h3>Hello , Websockets!</h3>
+    <input type="text" placeholder="Enter text" id="text">
+    <div id="output"></div>
+
+    <script>
+        const input = document.querySelector('#text');
+        const output = document.querySelector('#output');
+        const ws = new WebSocket("ws://localhost:8080/wsapp")
+
+        ws.onmessage = function (e) {
+            output.innerHTML += e.data + "<br/>"
+        }
+
+        input.addEventListener('keypress', function (e) {
+            if (e.keyCode === 13) {
+                ws.send(input.value);
+            }
+        })
+    </script>
+</body>
+
+</html>
